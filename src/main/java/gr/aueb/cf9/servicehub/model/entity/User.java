@@ -1,7 +1,6 @@
 package gr.aueb.cf9.servicehub.model.entity;
 
 import gr.aueb.cf9.servicehub.model.enums.Role;
-import gr.aueb.cf9.servicehub.model.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,9 +36,8 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserStatus status = UserStatus.ACTIVE;
+    private boolean enabled = true;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
