@@ -33,4 +33,10 @@ public class GlobalExceptionHandler {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
+
+    @ExceptionHandler(EntityInvalidArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidArgument(EntityInvalidArgumentException ex) {
+        Map<String, String> error = Map.of("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }
