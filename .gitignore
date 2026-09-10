@@ -29,8 +29,14 @@ bin/
 Thumbs.db
 
 # Environment / secrets
-.env
+backend/.env
+frontend/.env
 application-local.properties
 
 # Logs
 *.log
+
+# Node / React (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
