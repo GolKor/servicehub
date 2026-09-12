@@ -3,19 +3,22 @@ const BASE_URL = 'http://localhost:8080/api';
 async function request(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {
     ...options,
-    credentials: 'include', // ΑΠΑΡΑΙΤΗΤΟ — στέλνει/δέχεται το session cookie
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,
     },
   });
 
+  if (response.redirected) {
+    throw new Error('You must be logged in to do this.');
+  }
+
   if (!response.ok) {
     const errorBody = await response.json().catch(() => ({}));
     throw new Error(errorBody.error || `Request failed with status ${response.status}`);
   }
 
-  // Some responses (like logout) may have no body
   const contentType = response.headers.get('content-type');
   if (contentType && contentType.includes('application/json')) {
     return response.json();
